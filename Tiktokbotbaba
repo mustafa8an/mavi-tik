@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>TikTok Badge Generator</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      transition: background 0.3s, color 0.3s;
+      padding: 20px;
+    }
+
+    .card {
+      border-radius: 12px;
+      padding: 25px;
+      max-width: 500px;
+      width: 100%;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .title {
+      font-size: 1.4rem;
+      margin-bottom: 15px;
+      font-weight: bold;
+    }
+
+    .desc {
+      font-size: 1rem;
+      margin-bottom: 25px;
+      line-height: 1.5;
+    }
+
+    .btn {
+      padding: 10px 18px;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+
+    .codebox {
+      background: #222;
+      color: #0f0;
+      font-family: monospace;
+      padding: 12px;
+      margin-top: 30px;
+      border-radius: 8px;
+      width: 90%;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card" id="card">
+    <div class="title">TikTok Verification Notice</div>
+    <div class="desc" id="descText">Loading...</div>
+    <button class="btn" id="refreshBtn" onclick="generate()">Generate New</button>
+  </div>
+
+  <div class="codebox" id="codeOutput"></div>
+
+  <script>
+    const messages = [
+      "Your profile meets TikTok’s criteria and is now ready for official verification.",
+      "You are eligible for the verification badge. Display it to enhance your authenticity.",
+      "Based on your profile, you're now approved for verification.",
+      "Verification status achieved. The badge is ready to be activated.",
+      "You now qualify for TikTok’s verified status. Show your authenticity with the badge.",
+      "Your account review is complete. You are now approved for profile verification.",
+      "Everything checks out! You're eligible to enable the verified badge."
+    ];
+
+    const themes = [
+      {
+        background: '#f5f5f5',
+        textColor: '#111',
+        cardBg: '#ffffff',
+        btnBg: '#25f4ee',
+        btnColor: '#000'
+      },
+      {
+        background: '#1e1e1e',
+        textColor: '#eee',
+        cardBg: '#2a2a2a',
+        btnBg: '#25f4ee',
+        btnColor: '#000'
+      },
+      {
+        background: '#e0f7fa',
+        textColor: '#004d40',
+        cardBg: '#ffffff',
+        btnBg: '#00bcd4',
+        btnColor: '#fff'
+      },
+      {
+        background: '#fff3e0',
+        textColor: '#6d4c41',
+        cardBg: '#ffffff',
+        btnBg: '#ff9800',
+        btnColor: '#fff'
+      },
+      {
+        background: '#ede7f6',
+        textColor: '#311b92',
+        cardBg: '#ffffff',
+        btnBg: '#7e57c2',
+        btnColor: '#fff'
+      }
+    ];
+
+    function generate() {
+      const text = messages[Math.floor(Math.random() * messages.length)];
+      const theme = themes[Math.floor(Math.random() * themes.length)];
+
+      document.body.style.background = theme.background;
+      document.body.style.color = theme.textColor;
+
+      const card = document.getElementById("card");
+      card.style.background = theme.cardBg;
+      card.style.color = theme.textColor;
+
+      const button = document.getElementById("refreshBtn");
+      button.style.background = theme.btnBg;
+      button.style.color = theme.btnColor;
+
+      document.getElementById("descText").textContent = text;
+
+      const htmlTemplate = `
+<div class="tiktok-verified-card">
+  <h2>TikTok Verification Notice</h2>
+  <p>${text}</p>
+  <button>Enable Badge</button>
+</div>`.trim();
+
+      document.getElementById("codeOutput").textContent = htmlTemplate;
+    }
+
+    // Başlangıçta bir kere çağır
+    generate();
+  </script>
+</body>
+</html>
